@@ -1,0 +1,14 @@
+{
+  "name": "heal_remote_schema",
+  "version": "1.0.0",
+  "description": "Auto heal remote schemas connected to hasura graphql engine",
+  "author": "Paritosh Raj <paritosh@hasura.io>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^1.2.4",
+    "dotenv": "^16.0.3"
+  }
+}
