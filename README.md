@@ -43,11 +43,30 @@ admin
 }
 ```
 
-To run this server locally (via node):
+To run this server locally:
+### Via node
 ```
 npm install
 touch .env
 npm start
 ```
 
+### Via docker
+The image is also pushed to docker hub. So you can directly use that in your `docker-compose.yaml` file or run it
+separately via docker run.
 
+```yaml
+version: '3.6'
+services:
+  heal-rs:
+    image: paritosh08/heal-remote-schema
+    ports:
+    - "8081:8080"
+    environment:
+      NODE_ENV: production
+      GRAPHQL_ENGINE_URL: http://graphql-engine:8080
+      HASURA_GRAPHQL_ADMIN_SECRET: hasura
+      CHECK_INTERVAL_SECONDS: 10
+      RELOAD_INTERVAL_SECONDS: 1
+  graphql-engine: ...
+```
