@@ -36,6 +36,9 @@ async function runCheck() {
     if (!isConsistent) {
       inconsistentSchemas = getAllInconsistentRemoteSchemas(response.data['inconsistent_objects']);
     }
+    else {
+      inconsistentSchemas = [];
+    }
   })
   .catch(function (error) {
     console.log(error);
@@ -45,6 +48,8 @@ async function runCheck() {
 function runCheckEveryNSeconds(n) {
   setInterval(runCheck, n * 1000);
 }
+// Run check when starting up
+runCheck()
 // Run check every N seconds
 runCheckEveryNSeconds(checkInterval);
 
@@ -54,7 +59,7 @@ async function runReload() {
     console.log("All remote schemas are consistent.")
   }
   else {
-    console.log(inconsistentSchemas);
+    console.log("Inconsistent schemas: " + inconsistentSchemas);
     gqlEngineURL.pathname = 'v1/metadata'
     axios.post(gqlEngineURL.href, {
       "type" : "reload_metadata",
@@ -90,7 +95,7 @@ function getAllInconsistentRemoteSchemas(jsonData) {
   var inconsistentRemoteSchemas = []
   for (let obj of jsonData) {
     if (obj["name"].startsWith("remote_schema")) {
-      const remoteSchemaName = obj["name"].split(' ')[1];
+      const remoteSchemaName = obj["name"].split(/ (.*)/s)[1];
       inconsistentRemoteSchemas.push(remoteSchemaName);
     }
   }
