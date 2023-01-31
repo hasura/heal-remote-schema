@@ -60,8 +60,6 @@ version: '3.6'
 services:
   heal-rs:
     image: paritosh08/heal-remote-schema
-    ports:
-    - "8081:8080"
     environment:
       NODE_ENV: production
       GRAPHQL_ENGINE_URL: http://graphql-engine:8080
