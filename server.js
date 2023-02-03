@@ -94,8 +94,8 @@ runReloadEveryNSeconds(reloadInterval);
 function getAllInconsistentRemoteSchemas(jsonData) {
   var inconsistentRemoteSchemas = []
   for (let obj of jsonData) {
-    if (obj["name"].startsWith("remote_schema")) {
-      const remoteSchemaName = obj["name"].split(/ (.*)/s)[1];
+    if (obj["type"]== "remote_schema") {
+      const remoteSchemaName = obj["definition"]["name"];
       inconsistentRemoteSchemas.push(remoteSchemaName);
     }
   }
