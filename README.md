@@ -59,7 +59,7 @@ separately via docker run.
 version: '3.6'
 services:
   heal-rs:
-    image: paritosh08/heal-remote-schema
+    image: hasura/heal-remote-schema
     environment:
       NODE_ENV: production
       GRAPHQL_ENGINE_URL: http://graphql-engine:8080
