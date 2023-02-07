@@ -5,10 +5,12 @@ A script for auto healing the inconsistent remote schemas in graphql-engine.
 ### Configurable parameters:
 
 This script uses the following configurable parameters (environment variables) for running the auto-healing node server:
-1. `GRAPHQL_ENGINE_URL`: The url of the graphql engine (e.g. `http://localhost:8080`)
-2. `HASURA_GRAPHQL_ADMIN_SECRET`: The admin secret of the graphql engine.
-3. `CHECK_INTERVAL_SECONDS`: The interval for checking the metadata for any inconsistencies (in seconds).
-4. `RELOAD_INTERVAL_SECONDS`: The interval for reloading the remote schemas (in seconds).
+| Environment variable          | Required | Description                                                                  | Default |
+|-------------------------------|----------|------------------------------------------------------------------------------|---------|
+| `GRAPHQL_ENGINE_URL`          | true     | The url of the graphql engine (e.g. `http://localhost:8080`)                 | -       |
+| `HASURA_GRAPHQL_ADMIN_SECRET` | false    | The admin secret of the graphql engine.                                      | -       |
+| `CHECK_INTERVAL_SECONDS`      | false    | The interval for checking the metadata for any inconsistencies (in seconds). | 60      |
+| `RELOAD_INTERVAL_SECONDS`     | false    | The interval for reloading the remote schemas (in seconds).                  | 60      |
 
 ### How does this work?
 

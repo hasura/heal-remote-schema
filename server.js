@@ -7,9 +7,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const gqlEngine = process.env.GRAPHQL_ENGINE_URL;
-const checkInterval = process.env.CHECK_INTERVAL_SECONDS;
-const reloadInterval = process.env.RELOAD_INTERVAL_SECONDS;
 const adminSecret = process.env.HASURA_GRAPHQL_ADMIN_SECRET;
+const checkInterval = process.env.CHECK_INTERVAL_SECONDS || 60; // defaults to 60 seconds
+const reloadInterval = process.env.RELOAD_INTERVAL_SECONDS || 60; // defaults to 60 seconds
 
 var inconsistentSchemas = []
 
@@ -18,10 +18,14 @@ if (! gqlEngine) {
   throw new Error('expected a non null environment variable GRAPHQL_ENGINE_URL');
 }
 const gqlEngineURL = new URL(gqlEngine);
-console.log(`GQL engine running on ${gqlEngineURL.href}`);
+console.log(`GQL engine running at ${gqlEngineURL.href}`);
 
-const headers = {
-  'x-hasura-admin-secret': adminSecret
+// build headers if there is some admin secret set
+let headers = {}
+if (adminSecret != null &&  adminSecret != "") {
+  headers = {
+    'x-hasura-admin-secret': adminSecret
+  }
 }
 
 // Async function to check the remote schemas
